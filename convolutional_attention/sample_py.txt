@@ -1,4 +1,4 @@
-import cPickle
+import _pickle as cPickle
 import heapq
 import os
 from collections import defaultdict
@@ -10,9 +10,9 @@ import numpy as np
 import re
 from experimenter import ExperimentLogger
 
-from convolutional_attention.copy_conv_rec_model import CopyConvolutionalRecurrentAttentionalModel
-from convolutional_attention.f1_evaluator import F1Evaluator
-from convolutional_attention.token_naming_data import TokenCodeNamingData
+#from .copy_conv_rec_model import CopyConvolutionalRecurrentAttentionalModel
+#from .f1_evaluator import F1Evaluator
+#from .token_naming_data import TokenCodeNamingData
 
 class ConvolutionalCopyAttentionalRecurrentLearner:
 
@@ -28,7 +28,7 @@ class ConvolutionalCopyAttentionalRecurrentLearner:
             "copy_convolutional_att_rec_model" +
             os.path.basename(self.hyperparameters["train_file"]) +
             ".pkl"))
-        print("Extracting data..."+ input_file)
+        print("Extracting data...")
         # Get data (train, validation)
         train_data, validation_data, self.naming_data = TokenCodeNamingData.get_data_in_recurrent_copy_convolution_format_with_validation(input_file, .92, self.padding_size)
         train_name_targets, train_code_sentences, train_code, train_target_is_unk, train_copy_vectors = train_data
@@ -238,7 +238,6 @@ def run_from_config(params, *args):
         print("No input file or test file given: %s:%s" % (args, len(args)))
         sys.exit(-1)
     input_file = args[0]
-    print(input_file)
     test_file = args[1]
     if len(args) > 2:
         num_epochs = int(args[2])
